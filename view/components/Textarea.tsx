@@ -1,14 +1,12 @@
 import clsx from "clsx";
 
-export default function Input({
-  onChange,
+export default function Textarea({
   className,
   ...props
-}: React.HTMLProps<HTMLInputElement>) {
+}: React.HTMLProps<HTMLTextAreaElement>) {
   return (
-    <input
+    <textarea
       {...props}
-      onChange={onChange}
       className={clsx("p-3 border rounded-md bg-card-background", className)}
     />
   );

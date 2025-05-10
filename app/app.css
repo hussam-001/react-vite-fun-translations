@@ -34,3 +34,9 @@ body {
     color-scheme: dark;
   }
 }
+
+.field-sizing-content {
+  resize: none;
+  field-sizing: content;
+  overflow: hidden;
+}
