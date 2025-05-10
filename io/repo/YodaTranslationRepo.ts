@@ -10,7 +10,7 @@ class YodaTranslationRepo {
     const json = await import(
       "../mocks/api.funtranslations.com_translate_yoda.json.json"
     );
-
+    json.contents.text = text;
     return Promise.resolve({
       json() {
         return json;

@@ -1,10 +1,13 @@
+import { AppContext } from "contexts/app.context";
 import { createDefaultFunTranslationService } from "io/service/FunTranslationService";
-import { useActionData } from "react-router";
+import { useContext, useMemo } from "react";
+import { redirect, useParams } from "react-router";
 import Content from "view/components/Content";
 import Header from "view/components/Header";
 import { Sidepane } from "view/components/Sidepane";
+import PastTranslations from "~/translate/PastTranslations";
 import TranslationResult from "~/translate/TranslationResult";
-import { TranslateForm } from "../translate/form";
+import { TranslateForm } from "../translate/TranslateForm";
 import type { Route } from "./+types/translate";
 
 export function meta({}: Route.MetaArgs) {
@@ -15,27 +18,42 @@ export function meta({}: Route.MetaArgs) {
 }
 
 export const action = async ({ request }: Route.ActionArgs) => {
+  const formData = await request.formData();
+  const text = formData.get("text") as string;
   const translationService = createDefaultFunTranslationService();
-  const translation = await translationService.getTranslation("placeholder");
-  // should I do something with that request?
-
+  const translation = await translationService.getTranslation(text);
   return translation;
 };
 
+export const clientAction = async ({
+  serverAction,
+}: Route.ClientActionArgs) => {
+  const data = await serverAction();
+  const translationsStr = localStorage.getItem("translations");
+  const translations = translationsStr ? JSON.parse(translationsStr) : [];
+  localStorage.setItem("translations", JSON.stringify([data, ...translations]));
+  return redirect(`/translate/${data.id}`);
+};
+
 export default function Translate() {
-  const translation = useActionData();
+  const { id } = useParams();
+  const { translations } = useContext(AppContext);
+
+  const selectedTranslation = useMemo(() => {
+    return translations.find((t) => t.id === id);
+  }, [translations, id]);
 
   return (
     <div className="flex h-full bg-background">
       <Sidepane>
-        <div className="h-[72px] flex items-center px-4 border-b">
-          <h2 className="text-lg font-bold">Past Translations</h2>
-        </div>
+        <PastTranslations />
       </Sidepane>
       <Content>
         <Header title="Fun Translations" />
         <div className="flex-1 overflow-y-auto">
-          {translation && <TranslationResult translation={translation} />}
+          {selectedTranslation && (
+            <TranslationResult translation={selectedTranslation} />
+          )}
         </div>
         <TranslateForm />
       </Content>
