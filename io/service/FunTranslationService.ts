@@ -1,8 +1,9 @@
+import { randomUUID } from "crypto";
 import type { Translation } from "domain/types/Translation";
 import YodaTranslationRepo from "../repo/YodaTranslationRepo";
 
 interface FunTranslationService {
-  getTranslation(text: string): Translation;
+  getTranslation(text: string): Promise<Translation>;
 }
 
 class DefaultFunTranslationService implements FunTranslationService {
@@ -16,7 +17,13 @@ class DefaultFunTranslationService implements FunTranslationService {
     const response = await this.repo.getTranslation(text);
     const payload = await response.json();
 
-    return payload as Translation;
+    return {
+      id: randomUUID(),
+      text: payload.contents.text,
+      translated: payload.contents.translated,
+      engine: payload.contents.translation,
+      createdAt: new Date().toISOString(),
+    } as Translation;
   }
 }
 
@@ -27,4 +34,4 @@ const createDefaultFunTranslationService = () => {
   return service;
 };
 
-export { DefaultFunTranslationService, createDefaultFunTranslationService };
+export { createDefaultFunTranslationService, DefaultFunTranslationService };
