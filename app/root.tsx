@@ -7,6 +7,7 @@ import {
   ScrollRestoration,
 } from "react-router";
 
+import { AppProvider } from "contexts/app.context";
 import type { Route } from "./+types/root";
 import "./app.css";
 
@@ -33,7 +34,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="h-screen">
-        {children}
+        <AppProvider>{children}</AppProvider>
         <ScrollRestoration />
         <Scripts />
       </body>
