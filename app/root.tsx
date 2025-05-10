@@ -24,6 +24,15 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+export const clientLoader = () => {
+  const translations = localStorage.getItem("translations");
+  return translations ? JSON.parse(translations) : [];
+};
+
+export function HydrateFallback() {
+  return null;
+}
+
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
