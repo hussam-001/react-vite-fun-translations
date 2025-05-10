@@ -34,7 +34,9 @@ export default function Translate() {
       </Sidepane>
       <Content>
         <Header title="Fun Translations" />
-        <TranslationResult>{JSON.stringify(translation)}</TranslationResult>
+        <div className="flex-1 overflow-y-auto">
+          {translation && <TranslationResult translation={translation} />}
+        </div>
         <TranslateForm />
       </Content>
     </div>
