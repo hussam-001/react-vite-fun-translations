@@ -1,6 +1,6 @@
 export default function Content({ children }) {
   return (
-    <div className="bg-zinc-50 max-w-xl  p-6 border border-zinc-100 w-full h-full rounded-lg">
+    <div className="p-6 w-full h-full flex-1 flex flex-col bg-background">
       {children}
     </div>
   );

@@ -1,9 +1,9 @@
-import type { Route } from "./+types/translate";
-import { TranslateForm } from "../translate/form";
-import Content from "view/components/Content";
-import Sidepane from "view/components/Sidepane";
 import { createDefaultFunTranslationService } from "io/service/FunTranslationService";
 import { useActionData } from "react-router";
+import Content from "view/components/Content";
+import Sidepane from "view/components/Sidepane";
+import { TranslateForm } from "../translate/form";
+import type { Route } from "./+types/translate";
 
 export function meta({}: Route.MetaArgs) {
   return [
@@ -24,11 +24,11 @@ export default function Translate() {
   const translation = useActionData();
 
   return (
-    <div className="flex h-full py-3">
+    <div className="flex h-full">
       <Sidepane>It would be nice to see past translations here.</Sidepane>
       <Content>
         <TranslateForm />
-        {JSON.stringify(translation)}
+        <p>{JSON.stringify(translation)}</p>
       </Content>
     </div>
   );
