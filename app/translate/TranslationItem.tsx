@@ -1,6 +1,7 @@
 import { useContext } from "react";
-import { Link } from "react-router";
+import { Link, useParams } from "react-router";
 
+import clsx from "clsx";
 import { AppContext } from "contexts/app.context";
 import type { Translation } from "domain/types/Translation";
 import Button from "view/components/Button";
@@ -11,6 +12,7 @@ export default function TranslationItem({
 }: {
   translation: Translation;
 }) {
+  const { id } = useParams();
   const { handleDeleteTranslation } = useContext(AppContext);
   const text = translation.text.slice(0, 20);
 
@@ -18,7 +20,10 @@ export default function TranslationItem({
     <Link
       key={translation.id}
       to={`/translate/${translation.id}`}
-      className="flex items-center justify-between p-2 hover:bg-primary/5 w-full"
+      className={clsx(
+        "flex items-center justify-between p-2 w-full",
+        id === translation.id ? "bg-background border-y" : "hover:bg-primary/5"
+      )}
     >
       <div>
         <div className="flex items-center gap-2">
