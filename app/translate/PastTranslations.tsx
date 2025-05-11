@@ -28,24 +28,22 @@ export default function PastTranslations() {
       </div>
       <div className="flex-1 overflow-y-auto">
         {!(translations.length > 0) ? (
-          <div className="p-4 text-center text-gray-400">
-            No translations yet
-          </div>
+          <div className="p-4 text-center text-muted">No translations yet</div>
         ) : (
           <div>
             {Object.entries(groupedTranslations).map(([date, translations]) => (
-              <div key={date} className="group">
-                <div className="sticky top-0 px-4 py-2 text-xs text-muted border-b">
+              <div key={date} className="group mb-4">
+                <p className="sticky bg-background top-0 px-2 py-1 text-xs text-muted">
                   {date}
-                </div>
-                <div className="divide-y">
+                </p>
+                <div>
                   {translations?.map((translation) => {
-                    const text = translation.text.slice(0, 25);
+                    const text = translation.text.slice(0, 20);
                     return (
                       <Link
                         key={translation.id}
                         to={`/translate/${translation.id}`}
-                        className="flex items-center justify-between p-3 hover:bg-primary/10 w-full"
+                        className="flex items-center justify-between p-2 hover:bg-primary/5 w-full"
                       >
                         <div>
                           <div className="flex items-center gap-2">
