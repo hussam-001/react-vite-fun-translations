@@ -1,11 +1,13 @@
-# TODO
+# Key Highlights
 
-- [x] Multiple engines (Yoda, Pirate, Minion)
+- [x] clean architecture and clear separation of concerns.
+- [x] Supported multiple engines (Yoda, Pirate, and Minion).
+- [x] server-side caching to minimize API calls.
+- [x] client-side localStorage caching to persist past translations between sessions.
+- [x] Responsive design
+- [x] Error boundaries and loading skeletons, and indicators
 - [x] Clean git history
-- [x] Server side cache service
-- [x] Saving past translations in client local storage
-- [x] TypeScript implementation
-- [x] Error handling
+- [x] Type safety
 
 # Welcome to Our UI Engineer Coding Challenge!
 
