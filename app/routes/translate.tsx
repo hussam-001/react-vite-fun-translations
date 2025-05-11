@@ -8,6 +8,7 @@ import { TranslateForm } from "~/translate/TranslateForm";
 import TranslationResult from "~/translate/TranslationResult";
 import type { Route } from "./+types/translate";
 
+// funtranslation api call happens server side
 export const action = async ({ request }: Route.ActionArgs) => {
   const formData = await request.formData();
   const text = formData.get("text") as string;
@@ -17,6 +18,7 @@ export const action = async ({ request }: Route.ActionArgs) => {
   return translation;
 };
 
+// saving response in localStorage
 export const clientAction = async ({
   serverAction,
 }: Route.ClientActionArgs) => {
