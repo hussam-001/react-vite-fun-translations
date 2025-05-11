@@ -7,7 +7,8 @@ export default function EngineSelect() {
   const { engine, setEngine } = useContext(AppContext);
   return (
     <Select
-      value={engine}
+      name="engine"
+      defaultValue={engine}
       onChange={(e) => setEngine(e.target.value as Engine)}
     >
       <SelectOption value="yoda">Yoda</SelectOption>

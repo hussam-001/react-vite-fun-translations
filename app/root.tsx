@@ -13,7 +13,6 @@ import Header from "view/components/Header";
 import { Sidepane, SidepaneToggle } from "view/components/Sidepane";
 import type { Route } from "./+types/root";
 import "./app.css";
-import EngineSelect from "./translate/EngineSelect";
 import PastTranslations from "./translate/PastTranslations";
 
 export const links: Route.LinksFunction = () => [
@@ -61,7 +60,6 @@ export function Layout({ children }: { children: React.ReactNode }) {
                     Fun Translations
                   </h1>
                 </div>
-                <EngineSelect />
               </Header>
               {children}
             </Content>

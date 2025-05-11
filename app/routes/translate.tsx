@@ -1,4 +1,5 @@
 import { AppContext } from "contexts/app.context";
+import type { Engine } from "domain/types/Engine";
 import { createDefaultFunTranslationService } from "io/service/FunTranslationService";
 import { useContext, useMemo } from "react";
 import { isRouteErrorResponse, redirect, useParams } from "react-router";
@@ -16,7 +17,8 @@ export function meta({}: Route.MetaArgs) {
 export const action = async ({ request }: Route.ActionArgs) => {
   const formData = await request.formData();
   const text = formData.get("text") as string;
-  const translationService = createDefaultFunTranslationService();
+  const engine = formData.get("engine") as Engine;
+  const translationService = createDefaultFunTranslationService(engine);
   const translation = await translationService.getTranslation(text);
   return translation;
 };

@@ -1,5 +1,7 @@
 import { randomUUID } from "crypto";
+import type { Engine } from "domain/types/Engine";
 import type { Translation } from "domain/types/Translation";
+import PirateTranslationRepo from "io/repo/PirateTranslationRepo";
 import YodaTranslationRepo from "../repo/YodaTranslationRepo";
 
 interface FunTranslationService {
@@ -7,9 +9,9 @@ interface FunTranslationService {
 }
 
 class DefaultFunTranslationService implements FunTranslationService {
-  repo: YodaTranslationRepo;
+  repo: YodaTranslationRepo | PirateTranslationRepo;
 
-  constructor(repo: YodaTranslationRepo) {
+  constructor(repo: YodaTranslationRepo | PirateTranslationRepo) {
     this.repo = repo;
   }
 
@@ -27,9 +29,19 @@ class DefaultFunTranslationService implements FunTranslationService {
   }
 }
 
-const createDefaultFunTranslationService = () => {
-  const yodaRepo = new YodaTranslationRepo();
-  const service = new DefaultFunTranslationService(yodaRepo);
+const getTranslationRepo = (engine: Engine) => {
+  switch (engine) {
+    case "pirate":
+      return new PirateTranslationRepo();
+    case "yoda":
+    default:
+      return new YodaTranslationRepo();
+  }
+};
+
+const createDefaultFunTranslationService = (engine: Engine = "yoda") => {
+  const translationRepo = getTranslationRepo(engine);
+  const service = new DefaultFunTranslationService(translationRepo);
 
   return service;
 };

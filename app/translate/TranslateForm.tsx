@@ -4,6 +4,7 @@ import Button from "view/components/Button";
 import Textarea from "view/components/Textarea";
 import LoaderCircleIcon from "view/svg/LoaderCircleIcon";
 import SendHorizontalIcon from "view/svg/SendHorizontalIcon";
+import EngineSelect from "./EngineSelect";
 
 export function TranslateForm() {
   const submit = useSubmit();
@@ -33,24 +34,27 @@ export function TranslateForm() {
           method="POST"
           onSubmit={handleSubmit}
         >
-          <fieldset className="w-full rounded-lg border bg-card-background text-white shadow-sm flex items-end p-2">
-            <Textarea
-              name="text"
-              placeholder="Enter the text to translate here"
-              className="w-full border-none outline-none field-sizing-content max-h-[200px]"
-              onKeyDown={handleKeyDown}
-              disabled={isLoading}
-            />
-
-            <div className="mb-1">
-              <Button
-                type="submit"
-                variant="primary"
-                className="p-2! rounded-full!"
+          <fieldset>
+            <EngineSelect />
+            <div className="mt-3 w-full rounded-lg border bg-card-background text-white shadow-sm flex items-end p-2">
+              <Textarea
+                name="text"
+                placeholder="Enter the text to translate here"
+                className="w-full border-none outline-none field-sizing-content max-h-[200px]"
+                onKeyDown={handleKeyDown}
                 disabled={isLoading}
-              >
-                {isLoading ? <LoaderCircleIcon /> : <SendHorizontalIcon />}
-              </Button>
+              />
+
+              <div className="mb-1">
+                <Button
+                  type="submit"
+                  variant="primary"
+                  className="p-2! rounded-full!"
+                  disabled={isLoading}
+                >
+                  {isLoading ? <LoaderCircleIcon /> : <SendHorizontalIcon />}
+                </Button>
+              </div>
             </div>
           </fieldset>
         </Form>

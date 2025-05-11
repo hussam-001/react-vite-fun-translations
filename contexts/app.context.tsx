@@ -19,7 +19,7 @@ export const AppContext = createContext({
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const isMobile = useIsMobile();
   const translationsLoaderData = useLoaderData<Translation[]>();
-  const [engine, setEngine] = useState<Engine>("yoda");
+  const [engine, setEngine] = useLocalStorage<Engine>("engine", "yoda");
   const [isSidepaneOpen, setIsSidepaneOpen] = useState(!isMobile);
   const [translations, setTranslations] = useLocalStorage<Translation[]>(
     "translations",
