@@ -45,7 +45,7 @@ export default function TranslationResult({
     <div className="max-w-3xl mx-auto p-4">
       <div className="mb-4 flex items-center justify-between">
         <div className="flex items-center space-x-3">
-          <span className="text-sm text-primary font-bold">
+          <span className="text-md text-primary font-bold bg-primary/10 px-2 py-1 rounded-full">
             {translation.engine.toUpperCase()}
           </span>
           <span className="text-xs text-muted">

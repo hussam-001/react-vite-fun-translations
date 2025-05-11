@@ -7,13 +7,6 @@ import { TranslateForm } from "~/translate/TranslateForm";
 import TranslationResult from "~/translate/TranslationResult";
 import type { Route } from "./+types/translate";
 
-export function meta({}: Route.MetaArgs) {
-  return [
-    { title: "New React Router App" },
-    { name: "description", content: "Welcome to React Router!" },
-  ];
-}
-
 export const action = async ({ request }: Route.ActionArgs) => {
   const formData = await request.formData();
   const text = formData.get("text") as string;

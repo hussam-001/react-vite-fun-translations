@@ -28,6 +28,13 @@ export const links: Route.LinksFunction = () => [
   },
 ];
 
+export function meta({}: Route.MetaArgs) {
+  return [
+    { title: "Fun Translation App" },
+    { name: "description", content: "Welcome to Fun Translation!" },
+  ];
+}
+
 export const clientLoader = () => {
   const translations = localStorage.getItem("translations");
   return translations ? JSON.parse(translations) : [];

@@ -47,10 +47,10 @@ export default function PastTranslations() {
                       >
                         <div>
                           <div className="flex items-center gap-2">
-                            <span className="text-sm font-medium">
+                            <span className="text-xs font-bold bg-primary/20 rounded-full px-2">
                               {translation.engine.toLocaleUpperCase()}
                             </span>
-                            <span className="text-xs text-gray-400 group-hover/item:text-gray-300">
+                            <span className="text-xs text-muted">
                               {new Date(
                                 translation.createdAt
                               ).toLocaleTimeString()}
