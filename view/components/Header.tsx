@@ -1,18 +1,6 @@
-import { SidepaneToggle } from "./Sidepane";
-
-export default function Header({
-  title,
-  children,
-}: {
-  title: string;
-  children?: React.ReactNode;
-}) {
+export default function Header({ children }: { children?: React.ReactNode }) {
   return (
     <div className="h-[72px] flex items-center justify-between px-4 border-b">
-      <div className="flex items-center">
-        <SidepaneToggle />
-        <h1 className="ms-4 text-xl font-bold text-white">{title}</h1>
-      </div>
       {children}
     </div>
   );

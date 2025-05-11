@@ -1,3 +1,4 @@
+import type { Engine } from "domain/types/Engine";
 import type { Translation } from "domain/types/Translation";
 import useIsMobile from "hooks/useIsMobile";
 import { useLocalStorage } from "hooks/useLocalStorage";
@@ -7,6 +8,8 @@ import { useLoaderData } from "react-router";
 export const AppContext = createContext({
   isSidepaneOpen: false,
   translations: [] as Translation[],
+  engine: "yoda",
+  setEngine: (engine: Engine) => {},
   setTranslations: ([]) => {},
   toggleSidepane: () => {},
   handleClearStorage: () => {},
@@ -16,6 +19,7 @@ export const AppContext = createContext({
 export function AppProvider({ children }: { children: React.ReactNode }) {
   const isMobile = useIsMobile();
   const translationsLoaderData = useLoaderData<Translation[]>();
+  const [engine, setEngine] = useState<Engine>("yoda");
   const [isSidepaneOpen, setIsSidepaneOpen] = useState(!isMobile);
   const [translations, setTranslations] = useLocalStorage<Translation[]>(
     "translations",
@@ -51,6 +55,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       value={{
         isSidepaneOpen,
         translations,
+        engine,
+        setEngine,
         setTranslations,
         toggleSidepane,
         handleDeleteTranslation,

@@ -10,9 +10,10 @@ import {
 import { AppProvider } from "contexts/app.context";
 import Content from "view/components/Content";
 import Header from "view/components/Header";
-import { Sidepane } from "view/components/Sidepane";
+import { Sidepane, SidepaneToggle } from "view/components/Sidepane";
 import type { Route } from "./+types/root";
 import "./app.css";
+import EngineSelect from "./translate/EngineSelect";
 import PastTranslations from "./translate/PastTranslations";
 
 export const links: Route.LinksFunction = () => [
@@ -53,7 +54,15 @@ export function Layout({ children }: { children: React.ReactNode }) {
               <PastTranslations />
             </Sidepane>
             <Content>
-              <Header title="Fun Translations" />
+              <Header>
+                <div className="flex items-center">
+                  <SidepaneToggle />
+                  <h1 className="ms-4 text-xl font-bold text-primary">
+                    Fun Translations
+                  </h1>
+                </div>
+                <EngineSelect />
+              </Header>
               {children}
             </Content>
           </div>
