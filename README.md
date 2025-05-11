@@ -9,6 +9,11 @@
 - [x] Clean git history
 - [x] Type safety
 
+# Screenshots
+
+<img src="./public/welcome-screen-laptop.png" width="500"/> <img src="./public/translation-mobile.png" height="300"/>
+<img src="./public/translation-laptop.png" width="500"/> <img src="./public/sidepane-mobile.png" height="300"/>
+
 # Welcome to Our UI Engineer Coding Challenge!
 
 A modern, almost production-ready [fun translations](https://funtranslations.com/) client app.
