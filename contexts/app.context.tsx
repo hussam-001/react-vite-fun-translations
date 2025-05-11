@@ -8,7 +8,9 @@ import { useLoaderData } from "react-router";
 export const AppContext = createContext({
   isSidepaneOpen: false,
   translations: [] as Translation[],
+  isLoading: false,
   engine: "yoda",
+  setIsLoading: (isLoading: boolean) => {},
   setEngine: (engine: Engine) => {},
   setTranslations: ([]) => {},
   toggleSidepane: () => {},
@@ -20,6 +22,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const isMobile = useIsMobile();
   const translationsLoaderData = useLoaderData<Translation[]>();
   const [engine, setEngine] = useLocalStorage<Engine>("engine", "yoda");
+  const [isLoading, setIsLoading] = useState(false);
   const [isSidepaneOpen, setIsSidepaneOpen] = useState(!isMobile);
   const [translations, setTranslations] = useLocalStorage<Translation[]>(
     "translations",
@@ -57,6 +60,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
         translations,
         engine,
         setEngine,
+        isLoading,
+        setIsLoading,
         setTranslations,
         toggleSidepane,
         handleDeleteTranslation,

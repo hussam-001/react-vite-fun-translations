@@ -1,4 +1,5 @@
-import { useRef, useState, type KeyboardEvent } from "react";
+import { AppContext } from "contexts/app.context";
+import { useContext, useRef, type KeyboardEvent } from "react";
 import { Form, useSubmit } from "react-router";
 import Button from "view/components/Button";
 import Textarea from "view/components/Textarea";
@@ -9,7 +10,7 @@ import EngineSelect from "./EngineSelect";
 export function TranslateForm() {
   const submit = useSubmit();
   const formRef = useRef<HTMLFormElement>(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const { isLoading, setIsLoading } = useContext(AppContext);
 
   const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
     e?.preventDefault();

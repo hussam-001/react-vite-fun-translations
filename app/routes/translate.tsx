@@ -3,6 +3,7 @@ import type { Engine } from "domain/types/Engine";
 import { createDefaultFunTranslationService } from "io/service/FunTranslationService";
 import { useContext, useMemo } from "react";
 import { isRouteErrorResponse, redirect, useParams } from "react-router";
+import ResultSkeleton from "~/translate/ResultSkeleton";
 import { TranslateForm } from "~/translate/TranslateForm";
 import TranslationResult from "~/translate/TranslationResult";
 import type { Route } from "./+types/translate";
@@ -28,7 +29,7 @@ export const clientAction = async ({
 
 export default function Translate() {
   const { id } = useParams();
-  const { translations } = useContext(AppContext);
+  const { translations, isLoading } = useContext(AppContext);
 
   const selectedTranslation = useMemo(() => {
     return translations.find((t) => t.id === id);
@@ -37,7 +38,8 @@ export default function Translate() {
   return (
     <>
       <div className="flex-1 overflow-y-auto">
-        {selectedTranslation && (
+        {isLoading && <ResultSkeleton />}
+        {!isLoading && selectedTranslation && (
           <TranslationResult translation={selectedTranslation} />
         )}
       </div>
