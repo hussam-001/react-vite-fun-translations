@@ -8,14 +8,14 @@ export default function ResultSkeleton() {
         </div>
       </div>
 
-      <div className="space-y-6">
+      <div className="space-y-8">
         <div>
-          <p className="bg-primary/10 rounded-xl h-4 w-32 mb-2" />
+          <p className="bg-primary/10 rounded-xl h-4 w-32 mb-4" />
           <p className="bg-primary/10 rounded-xl h-4 w-96 max-w-full" />
         </div>
 
         <div>
-          <p className="bg-primary/10 rounded-xl h-4 w-32 mb-2" />
+          <p className="bg-primary/10 rounded-xl h-4 w-32 mb-4" />
           <p className="bg-primary/10 rounded-xl h-4 w-96 max-w-full" />
         </div>
       </div>

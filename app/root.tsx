@@ -7,13 +7,14 @@ import {
   ScrollRestoration,
 } from "react-router";
 
+import PastTranslations from "app/translate/PastTranslations";
+import ResultSkeleton from "app/translate/ResultSkeleton";
 import { AppProvider } from "contexts/app.context";
 import Content from "view/components/Content";
 import Header from "view/components/Header";
 import { Sidepane, SidepaneToggle } from "view/components/Sidepane";
 import type { Route } from "./+types/root";
 import "./app.css";
-import PastTranslations from "./translate/PastTranslations";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -35,13 +36,18 @@ export function meta({}: Route.MetaArgs) {
   ];
 }
 
+// get past translations from localStorage during hydration
 export const clientLoader = () => {
   const translations = localStorage.getItem("translations");
   return translations ? JSON.parse(translations) : [];
 };
 
 export function HydrateFallback() {
-  return null;
+  return (
+    <div>
+      <ResultSkeleton />
+    </div>
+  );
 }
 
 export function Layout({ children }: { children: React.ReactNode }) {
