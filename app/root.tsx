@@ -15,6 +15,7 @@ import Header from "view/components/Header";
 import { Sidepane, SidepaneToggle } from "view/components/Sidepane";
 import type { Route } from "./+types/root";
 import "./app.css";
+import ClearHistoryButton from "./translate/ClearHistoryButton";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -64,6 +65,9 @@ export function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex h-full bg-background">
             <Sidepane>
               <PastTranslations />
+              <div className="p-4 border-t border-gray-700">
+                <ClearHistoryButton />
+              </div>
             </Sidepane>
             <Content>
               <Header>
