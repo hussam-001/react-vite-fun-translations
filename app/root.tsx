@@ -8,8 +8,12 @@ import {
 } from "react-router";
 
 import { AppProvider } from "contexts/app.context";
+import Content from "view/components/Content";
+import Header from "view/components/Header";
+import { Sidepane } from "view/components/Sidepane";
 import type { Route } from "./+types/root";
 import "./app.css";
+import PastTranslations from "./translate/PastTranslations";
 
 export const links: Route.LinksFunction = () => [
   { rel: "preconnect", href: "https://fonts.googleapis.com" },
@@ -43,7 +47,17 @@ export function Layout({ children }: { children: React.ReactNode }) {
         <Links />
       </head>
       <body className="h-screen">
-        <AppProvider>{children}</AppProvider>
+        <AppProvider>
+          <div className="flex h-full bg-background">
+            <Sidepane>
+              <PastTranslations />
+            </Sidepane>
+            <Content>
+              <Header title="Fun Translations" />
+              {children}
+            </Content>
+          </div>
+        </AppProvider>
         <ScrollRestoration />
         <Scripts />
       </body>

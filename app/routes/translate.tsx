@@ -1,13 +1,9 @@
 import { AppContext } from "contexts/app.context";
 import { createDefaultFunTranslationService } from "io/service/FunTranslationService";
 import { useContext, useMemo } from "react";
-import { redirect, useParams } from "react-router";
-import Content from "view/components/Content";
-import Header from "view/components/Header";
-import { Sidepane } from "view/components/Sidepane";
-import PastTranslations from "~/translate/PastTranslations";
+import { isRouteErrorResponse, redirect, useParams } from "react-router";
+import { TranslateForm } from "~/translate/TranslateForm";
 import TranslationResult from "~/translate/TranslationResult";
-import { TranslateForm } from "../translate/TranslateForm";
 import type { Route } from "./+types/translate";
 
 export function meta({}: Route.MetaArgs) {
@@ -44,19 +40,40 @@ export default function Translate() {
   }, [translations, id]);
 
   return (
-    <div className="flex h-full bg-background">
-      <Sidepane>
-        <PastTranslations />
-      </Sidepane>
-      <Content>
-        <Header title="Fun Translations" />
-        <div className="flex-1 overflow-y-auto">
-          {selectedTranslation && (
-            <TranslationResult translation={selectedTranslation} />
-          )}
-        </div>
-        <TranslateForm />
-      </Content>
-    </div>
+    <>
+      <div className="flex-1 overflow-y-auto">
+        {selectedTranslation && (
+          <TranslationResult translation={selectedTranslation} />
+        )}
+      </div>
+      <TranslateForm />
+    </>
+  );
+}
+
+export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
+  const errorView = isRouteErrorResponse(error) ? (
+    <>
+      <h2 className="text-2xl font-bold text-primary">
+        {error.status} {error.statusText}
+      </h2>
+      <p>{error.data}</p>
+    </>
+  ) : error instanceof Error ? (
+    <>
+      <h2 className="text-2xl font-bold text-primary">Oops!</h2>
+      <p>{error.message || "Something went wrong"}</p>
+    </>
+  ) : (
+    <p>Something went wrong</p>
+  );
+
+  return (
+    <>
+      <div className="flex-1 overflow-y-auto flex items-center justify-center max-w-3xl mx-auto flex-col p-4 gap-2 text-red-500">
+        {errorView}
+      </div>
+      <TranslateForm />
+    </>
   );
 }

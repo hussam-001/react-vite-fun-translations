@@ -19,7 +19,7 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
   const [isSidepaneOpen, setIsSidepaneOpen] = useState(!isMobile);
   const [translations, setTranslations] = useLocalStorage<Translation[]>(
     "translations",
-    translationsLoaderData
+    translationsLoaderData || []
   );
 
   useEffect(() => {

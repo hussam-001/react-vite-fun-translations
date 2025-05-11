@@ -1,18 +1,26 @@
-import { useRef, type KeyboardEvent } from "react";
+import { useRef, useState, type KeyboardEvent } from "react";
 import { Form, useSubmit } from "react-router";
 import Button from "view/components/Button";
 import Textarea from "view/components/Textarea";
+import LoaderCircleIcon from "view/svg/LoaderCircleIcon";
 import SendHorizontalIcon from "view/svg/SendHorizontalIcon";
 
 export function TranslateForm() {
-  const formRef = useRef<HTMLFormElement>(null);
   const submit = useSubmit();
+  const formRef = useRef<HTMLFormElement>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleKeyDown = (e: KeyboardEvent<HTMLTextAreaElement>) => {
+  const handleSubmit = async (e?: React.FormEvent<HTMLFormElement>) => {
+    e?.preventDefault();
+    setIsLoading(true);
+    await submit(formRef.current!).finally(() => setIsLoading(false));
+    formRef.current!.reset();
+  };
+
+  const handleKeyDown = async (e: KeyboardEvent<HTMLTextAreaElement>) => {
     if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
-      submit(formRef.current!);
-      formRef.current!.reset();
+      await handleSubmit();
     }
   };
 
@@ -23,11 +31,7 @@ export function TranslateForm() {
           ref={formRef}
           className="contents"
           method="POST"
-          onSubmit={(e) => {
-            e.preventDefault();
-            submit(e.currentTarget);
-            e.currentTarget.reset();
-          }}
+          onSubmit={handleSubmit}
         >
           <fieldset className="w-full rounded-lg border bg-card-background text-white shadow-sm flex items-end p-2">
             <Textarea
@@ -35,6 +39,7 @@ export function TranslateForm() {
               placeholder="Enter the text to translate here"
               className="w-full border-none outline-none field-sizing-content max-h-[200px]"
               onKeyDown={handleKeyDown}
+              disabled={isLoading}
             />
 
             <div className="mb-1">
@@ -42,8 +47,9 @@ export function TranslateForm() {
                 type="submit"
                 variant="primary"
                 className="p-2! rounded-full!"
+                disabled={isLoading}
               >
-                <SendHorizontalIcon />
+                {isLoading ? <LoaderCircleIcon /> : <SendHorizontalIcon />}
               </Button>
             </div>
           </fieldset>
