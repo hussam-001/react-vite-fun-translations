@@ -1,11 +1,11 @@
 # TODO
 
-[x] Multiple engines (Yoda, Pirate, Minion)
-[x] Clean git history
-[x] Server side cache service
-[x] Saving past translations in client local storage
-[x] TypeScript implementation
-[x] Error handling
+- [x] Multiple engines (Yoda, Pirate, Minion)
+- [x] Clean git history
+- [x] Server side cache service
+- [x] Saving past translations in client local storage
+- [x] TypeScript implementation
+- [x] Error handling
 
 # Welcome to Our UI Engineer Coding Challenge!
 
