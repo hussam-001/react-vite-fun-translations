@@ -1,10 +1,10 @@
 import type { Engine } from "domain/types/Engine";
 import type { Translation } from "domain/types/Translation";
 import { fromDto } from "io/codec/fun-translation";
+import MinionTranslationRepo from "io/repo/MinionTranslationRepo";
 import PirateTranslationRepo from "io/repo/PirateTranslationRepo";
+import YodaTranslationRepo from "io/repo/YodaTranslationRepo";
 import type { FunTranslationApiResponse } from "io/types/FunTranslationTypes";
-
-import YodaTranslationRepo from "../repo/YodaTranslationRepo";
 import cacheService from "./CacheService";
 
 interface FunTranslationService {
@@ -12,11 +12,11 @@ interface FunTranslationService {
 }
 
 class DefaultFunTranslationService implements FunTranslationService {
-  repo: YodaTranslationRepo | PirateTranslationRepo;
+  repo: YodaTranslationRepo | PirateTranslationRepo | MinionTranslationRepo;
   engine: Engine;
 
   constructor(
-    repo: YodaTranslationRepo | PirateTranslationRepo,
+    repo: YodaTranslationRepo | PirateTranslationRepo | MinionTranslationRepo,
     engine: Engine
   ) {
     this.repo = repo;
@@ -42,6 +42,8 @@ const getTranslationRepo = (engine: Engine) => {
   switch (engine) {
     case "pirate":
       return new PirateTranslationRepo();
+    case "minion":
+      return new MinionTranslationRepo();
     case "yoda":
     default:
       return new YodaTranslationRepo();

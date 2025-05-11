@@ -13,6 +13,7 @@ export default function EngineSelect() {
     >
       <SelectOption value="yoda">Yoda</SelectOption>
       <SelectOption value="pirate">Pirate</SelectOption>
+      <SelectOption value="minion">Minion</SelectOption>
     </Select>
   );
 }
